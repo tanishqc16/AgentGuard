@@ -123,17 +123,6 @@ temporal server start-dev
 
 Restart the worker after editing `.env`.
 
-## Demo walkthrough
-
-1. **Scan Inbox** runs all ten emails. Expect 5 safe, 3 blocked at the Input Guard, 2 blocked at the Output Guard.
-2. Click an email to see its pipeline: risk scores, the agent's reply, the evidence, and the Security Event card.
-
-   ![Pipeline for the Contract copies email: passes the Input Guard, the agent agrees to email an outside address, and the Output Guard blocks the action](docs/images/propagation-blocked.webp)
-
-   *"Contract copies" scores 0 at the Input Guard. The agent agrees to email an outside address, and the Output Guard blocks the action.*
-
-3. **Crash Recovery:** click it, and while the AI Agent card shows *Running*, run `pkill -9 -f backend.temporal.worker`. The dashboard shows the worker disconnecting. Restart the worker and the run resumes and completes.
-
 ## API
 
 | Endpoint | Purpose |
@@ -150,16 +139,3 @@ Restart the worker after editing `.env`.
 
 36 tests cover both guards, every email's expected verdict, the workflow and retries, the API, and a real `kill -9` worker-crash recovery. Tests use the mock agent and a local Temporal dev server started by the CLI.
 
-## Limitations
-
-- Emails are a demo dataset, not a real inbox, and there is no Gmail or Slack integration.
-- Actions are mocks and nothing is ever sent.
-- The guards are hand-written rules. They catch known phrasing, and a cleverly reworded attack may pass the Input Guard. The Output Guard exists to cover that gap.
-- The dataset is not a benchmark.
-
-## Team
-
-- [Name]: security guards
-- [Name]: AI agent, tools, demo data
-- [Name]: Temporal workflow and API
-- [Name]: frontend dashboard
